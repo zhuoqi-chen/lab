@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>类变表格居中方案</title>
+    <style type="text/css">
+        .media-left,
+        .media-middle {
+            display: table-cell;
+            padding-right: 10px;
+        }
+
+        .media-left {
+            vertical-align: top;
+        }
+
+        .media-middle {
+            vertical-align: middle;
+        }
+
+        .media-body {
+            display: table-cell;
+            vertical-align: top;
+            width: 10000px;
+            overflow: hidden;
+            zoom: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=".m-media">
+        <div class="media-left">
+            <img src="./demo.png">
+        </div>
+        <div class="media-body">
+            Top aligned media Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+            Donec lacinia congue felis in faucibus. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
+            leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </div>
+    </div>
+    <div class=".m-media">
+        <div class="media-middle">
+            <img style="height: 80px;" src="./demo.png">
+        </div>
+        <div class="media-body">
+            Top aligned media Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+            Donec lacinia congue felis in faucibus. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
+            leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Top aligned media
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus
+            odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+            Donec lacinia congue felis in faucibus. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
+            leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </div>
+    </div>
+</body>
+
+</html>

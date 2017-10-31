@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vertical-align:middle垂直居中的原理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            background-color: #FFC107;
+            line-height: 300px;
+            position: relative;
+        }
+
+        .center-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: red;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="./center.png" alt="">
+        <span>X</span>
+        <div class="center-line"></div>
+    </div>
+
+</body>
+
+</html>

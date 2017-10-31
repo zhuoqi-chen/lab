@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>testBodyMargin</title>
+</head>
+<style>
+html,
+body,
+div {
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+html {
+    background: #fff;
+}
+body {
+    background: #a0cbed;
+}
+
+.father {
+    /* overflow: hidden; */
+    width: 200px;
+    height: 200px;
+    /* margin: 50px; */
+    background: #008800;
+}
+
+.son {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+    background: #cc0000;
+}
+</style>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+</body>
+</html>

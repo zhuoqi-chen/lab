@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>letter-spacing与字体大小/字体之间的关系</title>
+</head>
+
+<body>
+    <div id="box" style="font-size:16px; font-family:'宋体';">
+        <img src="./demo.png" />
+        <img src="./demo.png" /> 文字
+    </div>
+    <p>
+        letter-spacing:
+        <select id="letterSpacing">
+            <option selected="selected" value="0">0</option>
+            <option value="-1px">-1px</option>
+            <option value="-2px">-2px</option>
+            <option value="-3px">-3px</option>
+            <option value="-4px">-4px</option>
+            <option value="-5px">-5px</option>
+            <option value="-6px">-6px</option>
+            <option value="-7px">-7px</option>
+            <option value="-8px">-8px</option>
+            <option value="-9px">-9px</option>
+            <option value="-10px">-10px</option>
+        </select>
+    </p>
+    <p>
+        font-size:
+        <select id="fontSize">
+            <option value="12px">12px</option>
+            <option value="13px">13px</option>
+            <option value="14px">14px</option>
+            <option selected="selected" value="16px">16px</option>
+        </select>
+    </p>
+    <p>
+        font-family:
+        <select id="fontFamily">
+            <option value="Arial">Arial</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Geneva">Geneva</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="monospace">monospace</option>
+            <option selected="selected" value="宋体">宋体</option>
+            <option value="微软雅黑">微软雅黑</option>
+        </select>
+    </p>
+    <script>
+        var $ = function (id) {
+            return document.getElementById(id);
+        };
+        $("letterSpacing").onchange = function () {
+            $("box").style.letterSpacing = this.value;
+        };
+        $("fontSize").onchange = function () {
+            $("box").style.fontSize = this.value;
+        };
+        $("fontFamily").onchange = function () {
+            $("box").style.fontFamily = this.value;
+        };
+    </script>
+    <div style="position:absolute; left:-6000px; top:-6000px;">
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-11205167-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+                    '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </div>
+</body>
+
+</html>

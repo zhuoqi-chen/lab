@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            line-height: 1.42858;
+            font-size: 14px;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url(delete.png) no-repeat center;
+            white-space: nowrap;
+            letter-spacing: -1em;
+            text-indent: -99em;
+            color: transparent;
+            /* IE7 */
+            *text-indent: 0;
+            *zoom: expression( this.runtimeStyle['zoom']='1', this.innerHTML='\3000');
+        }
+
+        .icon:before {
+            content: '\3000';
+        }
+    </style>
+</head>
+
+<body>
+    <strong>情形1，空标签</strong>
+    <p>
+        <i class="icon"></i> 删除</p>
+    <strong>情形2，内部有文字</strong>
+    <p>
+        <a href="javascript:" class="icon">删除</a> 后面的文字</p>
+    <p style="color:gray;">--------下面是反例------</p>
+    <strong>设置了overflow:hidden</strong>
+    <p>
+        <i class="icon" style="overflow:hidden;"></i> 删除</p>
+    <hr/> 详见：
+    <a href="http://www.zhangxinxu.com/wordpress/2016/03/css-layout-base-20px/">以20像素为基准的CSS网页布局实践分享</a>
+</body>
+
+</html>

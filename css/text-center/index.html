@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>多行文本居中demo</title>
+    <style type="text/css">
+        strong {
+            margin: 20px;
+        }
+
+        .line-single {
+            line-height: 30px;
+        }
+
+        .mulit_line {
+            line-height: 150px;
+            border: 1px dashed #cccccc;
+            padding-left: 5px;
+            font-size: 0;
+        }
+
+        .mulit_line span {
+            line-height: 20px;
+            font-size: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .vm {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <strong>单行文本居中</strong>
+    <P class="line-single">单行文本居中</P>
+    <p class="mulit_line">
+        <span>多行文本居中多行文本居中多行文本居中
+            <br/>多行文本居中多行文本居中多行文本居中</span>
+    </p>
+</body>
+
+</html>
