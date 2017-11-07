@@ -6,5 +6,5 @@
     else
         root[library] = factory();
 })(this, function () {
-    //module ...
+    //module ..
 });
