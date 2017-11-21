@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惰性单例</title>
+</head>
+
+<body>
+    <script>
+        function Singleton(name) {
+            console.log(name);
+        }
+        Singleton.getInstance = (function () {
+            var instance = null;
+            return function (name) {
+                if (!instance) {
+                    instance = new Singleton(name);
+                }
+                return instance;
+            }
+        })();
+        var a = Singleton.getInstance('js')
+        var b = Singleton.getInstance('css')
+        console.log(a === b);
+    </script>
+</body>
+
+</html>
