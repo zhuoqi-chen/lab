@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虚拟代理</title>
+</head>
+
+<body>
+虚拟代理把一些开销很大的对象，延迟到 真正需要它的时候才去创建。代码如下:
+<pre id="script">
+    var Flower = function (name) {
+        this.name = name;
+    };
+    var chenzhuoqi = {
+        sendFlower: function (target) {
+            target.receiveFlower('玫瑰')
+        }
+    }
+    var B = {
+        receiveFlower: function (flowerName) {
+            A.listenGoodMood(function () {
+                var flower = new Flower(flowerName);
+                A.receiveFlower(flower)
+            })
+        }
+    }
+    var A = {
+        receiveFlower: function (flower) {
+            console.log(`A收到${flower.name}`);
+        },
+        listenGoodMood: function (fn) {
+            if (typeof fn !== 'function') {
+                console.log('fu must be a function');
+                return;
+            }
+            setTimeout(fn, 2000);
+        }
+    }
+    chenzhuoqi.sendFlower(B);
+</pre>
+<script>
+    var script= document.querySelector('#script').innerText;
+    eval(script)
+</script>
+
+</body>
+
+</html>

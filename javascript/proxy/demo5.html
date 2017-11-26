@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虚拟代理做图片预加载</title>
+</head>
+
+<body>
+    虚拟代理把一些开销很大的对象，延迟到 真正需要它的时候才去创建。代码如下:
+    <pre id="script">
+            
+</pre>
+    <script>
+        var myImage = (function () {
+            var imgNode = document.createElement('img');
+            document.body.appendChild(imgNode);
+            return {
+                setSrc: function (src) {
+                    imgNode.src = src;
+                }
+            }
+        })();
+        var proxyImage = (function () {
+            var img = new Image;
+            img.onload = function () {
+                myImage.setSrc(this.src);
+            }
+            return {
+                setSrc: function (src) {
+                    myImage.setSrc('https://www.baidu.com/img/bd_logo1.png');
+                    img.src = src;
+                }
+            }
+        })();
+        proxyImage.setSrc('https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png');
+    </script>
+
+</body>
+
+</html>
