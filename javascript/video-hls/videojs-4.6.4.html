@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="./pkg/videojs-4.6.4/video-js.min.css" rel="stylesheet">
+</head>
+<body>
+    <script src="./pkg/videojs-4.6.4/video.js"></script>
+    <script>
+        videojs.options.flash.swf='./pkg/videojs-4.6.4/video-js.swf'
+    </script>
+    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264" 
+        poster="http://video-js.zencoder.com/oceans-clip.png"
+        data-setup='{"techOrder": ["flash"]}'>
+    <!-- <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' /> -->
+    <source src="http://www.flashls.org/playlists/test_001/stream.m3u8" type='video/mp4' />
+    </video>
+</body>
+</html>

@@ -11,6 +11,8 @@
   "dependencies": {
     "flv.js": "^1.3.3",
     "vconsole": "^3.0.0",
-    "videojs-contrib-hls": "^5.12.1"
+    "video.js": "^6.4.0",
+    "videojs-contrib-hls": "^5.12.2",
+    "videojs-flash": "^2.0.1"
   }
 }

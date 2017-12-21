@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flash</title>
+    <link rel="stylesheet" href="./node_modules/video.js/dist/video-js.min.css">
+</head>
+
+<body>
+
+    <video id="example-video" class="video-js vjs-default-skin" controls>
+        <!-- <source src="http://www.flashls.org/playlists/test_001/stream.m3u8" type="video/mp4"> -->
+        <!-- <source src="http://m.imooc.com/course/42/high.m3u8?cdn=aliyun&play_device=iphone" type="application/x-mpegURL"> -->
+        <!-- <source src="https://video.x.zhihuiya.com/【智慧工场】深圳-李伟_1511762333473.mp4" type="video/mp4"> -->
+        <source src="https://video.x.zhihuiya.com/a%E4%B8%8D%E5%8A%A0%E5%AF%86%E5%88%87%E7%89%87_1509597144194.m3u8" type="application/x-mpegURL">
+    </video>
+    <script src="./node_modules/video.js/dist/video.min.js"></script>
+    <script src="./node_modules/videojs-flash/dist/videojs-flash.min.js"></script>
+    <script src="./node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+    <script>
+        var player = videojs('example-video', {
+            techOrder: ['flash']
+        });
+        player.play();
+    </script>
+</body>
+
+</html>
