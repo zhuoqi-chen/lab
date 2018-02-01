@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>video-hls-test</title>
+    <script src="https://cdn.bootcss.com/hls.js/0.8.4/hls.min.js"></script>
+    <script src="./load-video.js"></script>
+    <script src="./node_modules/vconsole/dist/vconsole.min.js"></script>
+</head>
+<body>
+    <video src="" id="video" controls></video>
+    <script>
+        var vConsole = new VConsole();
+        //不加密
+        // new loadVideo('video','https://video.x.zhihuiya.com/a%E4%B8%8D%E5%8A%A0%E5%AF%86%E5%88%87%E7%89%87_1509597144194.m3u8');
+        //加密
+        // new loadVideo('video','https://video.x.zhihuiya.com/a%E5%90%8C%E6%97%B6%E8%BD%ACmp4,%E5%B9%B6%E5%88%87%E7%89%87_1509596960806.m3u8');
+        //加密hlsKeyType0
+        // new loadVideo('video','https://video.x.zhihuiya.com/a%E5%8A%A0%E5%AF%86%E5%88%87%E7%89%87hlsKeyType0_1509598072319.m3u8');
+        //加密 new
+        // new loadVideo('video','https://video.x.zhihuiya.com/anodomain0%E5%88%87%E7%89%87_1509612545988.m3u8');
+        //慕课网
+        new loadVideo('video','http://m.imooc.com/course/42/high.m3u8?cdn=aliyun&play_device=iphone');
+    </script>
+</body>
+</html>
