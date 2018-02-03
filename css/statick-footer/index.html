@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sticky-Footer</title>
+	<style>
+	/* reset*/
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	/* 核心代码 */
+	html, body {
+    	box-sizing: border-box;
+		height: 100%;
+	}
+	.wrap{
+		min-height: 100%;
+	}
+	.main{
+		padding-bottom: 150px;
+	}
+	.footer{
+		position: relative;
+		top:-150px;
+		height: 150px;
+	}
+	/* 皮肤代码 */
+	.s-container{
+		/* text-align: center; */
+		background: #03A9F4;
+	}
+	.s-footer{
+		background: #8BC34A;
+		text-align: center;
+	}
+	.s-add-html{
+		position: fixed;
+		top:10px;
+		right: 10px;
+		padding: 10px;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="main">
+			<div class="container s-container js-container">
+                Sticky Footer，完美的绝对底部
+                <pre>
+                /* 核心代码 */
+                html, body {
+                    box-sizing: border-box;
+                    height: 100%;
+                }
+                .wrap{
+                    min-height: 100%;
+                }
+                .main{
+                        padding-bottom: 150px;
+                }
+                .footer{
+                    position: relative;
+                    top:-150px;
+                    height: 150px;
+                }
+                </pre>
+			</div>
+			<button class="js-add-html s-add-html">
+				增加文本
+			</button>
+		</div>
+	</div>
+	<div class="footer s-footer">
+		footer
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			var html='Sticky Footer，完美的绝对底部</br>'.repeat(25);
+			var $contaner=$('.js-container');
+			var $button = $('.js-add-html');
+			$button.on('click',function () {
+				$contaner.append('<div>'+html+'</div>')
+			})
+		});
+	</script>	
+</body>
+</html>
