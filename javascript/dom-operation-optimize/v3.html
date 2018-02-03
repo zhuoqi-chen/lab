@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v3-dom-operation-optimise</title>
+</head>
+<body>
+
+    <ul id="js-ul"></ul>
+    <script>
+        // 任务:添加事件
+        // 注意点:addEventListener的callback函数默认this指向当前节点,用胖箭头会改变作用域
+        (()=>{
+            const ul = document.querySelector('#js-ul');
+            if (!ul) {
+                return;
+            }
+            for (let index = 1; index <= 3; index++) {
+                const element = document.createElement('LI');
+                element.innerText=index;
+                element.addEventListener('click',function () {
+                    alert(this.innerText);
+                })
+                ul.appendChild(element)
+            }
+        })()
+    </script>
+    
+</body>
+</html>

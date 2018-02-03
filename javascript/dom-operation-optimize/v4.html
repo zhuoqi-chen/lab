@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v4-dom-operation-optimise</title>
+</head>
+<body>
+
+    <ul id="js-ul"></ul>
+    <script>
+        // 任务:需要有300li节点
+        // 优化点:
+        // 1.createDocumentFragment创建dom片段,一次性插入节点,避免多次dom操作
+        // 2.事件代理
+        (()=>{
+            const ul = document.querySelector('#js-ul');
+            if (!ul) {
+                return;
+            }
+            const fragment = document.createDocumentFragment();
+            for (let index = 1; index <= 3; index++) {
+                const element = document.createElement('LI');
+                element.innerText=index;
+                fragment.appendChild(element)
+            }
+            ul.appendChild(fragment)
+            ul.addEventListener('click',function (e) {
+                const target = e.target;
+                if (target.tagName === 'LI') {
+                    alert(target.innerHTML);
+                }
+            })
+        })()
+    </script>
+    
+</body>
+</html>

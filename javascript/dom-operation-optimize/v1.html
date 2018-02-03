@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v1-dom-operation-optimise</title>
+</head>
+<body>
+    <ul id="ul"></ul>
+    <script>
+        const ul = document.querySelector('#ul');
+        for (let index = 1; index <= 3; index++) {
+            const element = document.createElement('LI');
+            element.innerText=index;
+            ul.appendChild(element)
+        }
+    </script>
+    
+</body>
+</html>
