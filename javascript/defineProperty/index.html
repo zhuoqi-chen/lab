@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>defineProperty</title>
+</head>
+
+<body>
+    <script>
+        function cb(key,value) {
+            console.log(`检测到key:${key}变化,当前值为${value}`);
+        }
+        function observer(value) {
+            if (!value || (typeof value !== 'object')) {
+                return;
+            }
+            Object.keys(value).forEach((key) => {
+                defineReactive(value, key, value[key]);
+            });
+        }
+        function defineReactive(obj, key, val) {
+            Object.defineProperty(obj, key, {
+                enumerable: true,
+                configurable: true,    
+                get: function reactiveGetter() {
+                    return val;       
+                },
+                set: function reactiveSetter(newVal) {
+                    if (newVal === val) return;
+                    cb(key,newVal);
+                }
+            });
+        }
+        const observable= {
+            a:1
+        }
+        observer(observable);
+        let i=1;
+        const intervalID= setInterval(()=>{
+            i++;
+            observable.a=i
+            if (i>5) {
+                clearInterval(intervalID)
+            }
+        },1000)
+    </script>
+
+</body>
+
+</html>
