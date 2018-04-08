@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>video-qiniu</title>
+    <link href="https://player.qiniucc.com/sdk/latest/qiniuplayer.min.css" rel="stylesheet">
+</head>
+<body>
+    <video id="demo-video" class="video-js vjs-big-play-centered"></video>
+    <script src="https://player.qiniucc.com/sdk/latest/qiniuplayer.min.js"></script>
+    <script>
+        var demoUrl='http://og9dz2jqu.cvoda.com/Zmlyc3R2b2RiOm9jZWFucy0xLm1wNA==_q00000001.m3u8'
+        var patsnap='http://video.x.zhihuiya.com/v1-m3u8-aq0/m3u899%E4%BA%BA%E4%BA%8B%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E4%B9%8B%E5%81%87%E6%9C%9F%E7%AF%87_test.2222_1515379791142965ecd37bd32e253595ad98c8b9dd4f2.m3u8'
+        var newpatsnap ='http://p6nlkzb1s.bkt.clouddn.com/source.m3u8'
+        var apple='http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8'
+        var localQiniu='./qiniu.m3u8'
+        var localpatsnap='./source.m3u8'
+        var options = {
+            engineOrder : ['html5', 'flash'],
+            controls: true,
+            url: patsnap,
+            type: 'hls',
+            preload: true,
+            autoplay: false // 如为 true，则视频将会自动播放
+        };
+        var player = new QiniuPlayer('demo-video', options);
+    </script>
+</body>
+</html>
