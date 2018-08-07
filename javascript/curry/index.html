@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>curry</title>
+</head>
+
+<body>
+    <script>
+        const curryLeve1 = function (fn) {
+            const args = [].slice.call(arguments, 1)
+            return function () {
+                const newArgs = args.concat([].slice.call(arguments))
+                return fn.apply(this, newArgs)
+            }
+        }
+        function add(a, b) {
+            return a + b;
+        }
+
+        var addCurry = curry(add, 1, 2);
+        console.log(addCurry());
+
+        addCurry = curry(add, 1);
+        console.log(addCurry(2));
+
+        addCurry = curry(add);
+        console.log(addCurry(1,2));
+
+    </script>
+</body>
+
+</html>
