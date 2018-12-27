@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index3</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+    <script>
+        function mergerRow(tableData) {
+            return tableData
+                .reduce((acc, tr, trIndex, array) => {
+                    // 遍历行
+                    const newTr = tr.reduce((accTr, td, tdIndex) => {
+                        // 空值,已经合并行的,不允许换行的跳过合并
+                        if (!td.value || td.hiden || !td.can_row_span) {
+                            return [
+                                ...accTr,
+                                td,
+                            ]
+                        }
+                        let rowspan = 1
+                        // 遍历列
+                        // findTrIndex 当前行
+                        // tdIndex 当前列
+                        for (let findTrIndex = trIndex + 1; findTrIndex < array.length; findTrIndex += 1) {
+                            debugger
+                            // 当前列下一行值不等于当前行,跳出设置合并,并检查是否可以合并列
+                            if (array[findTrIndex][tdIndex].value !== td.value) {
+                                //合并列
+                                let colspan = 1
+                                for (let findTdIndex = tdIndex +1 ; findTdIndex < tr.length; findTdIndex++) {
+                                    debugger
+                                    const findTd = array[trIndex][findTdIndex]
+                                    if (!findTd.can_col_span || findTd.value !== td.value) {
+                                        break
+                                    }
+                                    colspan += 1
+                                    array[trIndex][findTdIndex].hiden = true
+                                    array[trIndex][findTdIndex].lockbycol = true
+                                }
+                                if (colspan > 1) {
+                                    td.colspan = colspan
+                                }
+                                break
+                            }
+                            // 累计需要合并行的数量
+                            rowspan += 1
+                            // 将此列的下一行数据做个标记,在渲染时候过滤
+                            array[findTrIndex][tdIndex].hiden = true
+                            array[findTrIndex][tdIndex].lockbyrow = true
+                        }
+                        if (rowspan > 1) td.rowspan = rowspan
+                        return [
+                            ...accTr,
+                            td,
+                        ]
+                    }, [])
+                    return [
+                        ...acc,
+                        newTr,
+                    ]
+                }, [])
+        }
+        const arr = [
+            [
+                {
+                    key:'col',
+                    value:'1',
+                    can_row_span:true,
+                    can_col_span:true
+                },
+                {
+                    key:'col2',
+                    value:'1',
+                    can_col_span:true
+                },
+                {
+                    key:'col3',
+                    value:'3',
+                    can_col_span:true
+                }
+            ],
+            [
+                {
+                    key:'col',
+                    value:'21',
+                    can_row_span:true,
+                    can_col_span:true
+                },
+                {
+                    key:'col2',
+                    value:'2',
+                    can_col_span:true
+                },
+                {
+                    key:'col3',
+                    value:'3',
+                    can_col_span:true
+                }
+            ],
+            [
+                {
+                    key:'col',
+                    value:'21',
+                    can_col_span:true
+                },
+                {
+                    key:'col2',
+                    value:'33',
+                    can_col_span:true
+                },
+                {
+                    key:'col3',
+                    value:'33',
+                    can_col_span:true
+                }
+            ],
+            [
+                {
+                    key:'col',
+                    value:'21',
+                    can_col_span:true
+                },
+                {
+                    key:'col2',
+                    value:'33',
+                    can_col_span:true
+                },
+                {
+                    key:'col3',
+                    value:'33',
+                    can_col_span:true
+                }
+            ]
+        ]
+        new Vue({
+            el:"#app",
+            template: `
+                <table border=1>
+                    <tr v-for="(tr,index) in data" :key="index">
+                        <td v-for="(td,tdindex) in tr" :key="tdindex">
+                            <div>{{td.value}}</div>
+                            <div>{{td.hiden}}</div>
+                        </td>
+                    </tr>
+                </table>
+            
+            `,
+            data(){
+                return {
+                    data:mergerRow(arr)
+                }
+            }
+        })
+
+        
+
+    </script>
+</body>
+
+</html>

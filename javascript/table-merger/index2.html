@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.js"></script>
+
+<script type="text/javascript">
+(function($) {
+    $.fn.mergeCell = function(options) {
+        return this.each(function() {
+            var cols = options.cols;
+            for ( var i = cols.length - 1; cols[i] != undefined; i--) {
+                mergeCell($(this), cols[i]);
+            }
+            dispose($(this));
+        });
+    }; 
+
+    function mergeCell($table, colIndex) {
+        $table.data('col-content', ''); // 存放单元格内容
+        $table.data('col-rowspan', 1); // 存放计算的rowspan值 默认为1
+        $table.data('col-td', $()); // 存放发现的第一个与前一行比较结果不同td(jQuery封装过的), 默认一个"空"的jquery对象
+        $table.data('trNum', $('tbody tr', $table).length); // 要处理表格的总行数, 用于最后一行做特殊处理时进行判断之用 
+
+        // 我们对每一行数据进行"扫面"处理 关键是定位col-td, 和其对应的rowspan
+        $('tbody tr', $table).each(function(index) {
+            // td:eq中的colIndex即列索引
+            var $td = $('td:eq(' + colIndex + ')', this);
+            // 取出单元格的当前内容
+            var currentContent = $td.html();
+            // 第一次时走此分支
+            if ($table.data('col-content') == '') {
+                $table.data('col-content', currentContent);
+                $table.data('col-td', $td);
+            } else {
+                // 上一行与当前行内容相同
+                if ($table.data('col-content') == currentContent) {
+                    // 上一行与当前行内容相同则col-rowspan累加, 保存新值
+                    var rowspan = $table.data('col-rowspan') + 1;
+                    $table.data('col-rowspan', rowspan);
+                    // 值得注意的是 如果用了$td.remove()就会对其他列的处理造成影响
+                    $td.hide();
+                    // 最后一行的情况比较特殊一点
+                    // 比如最后2行 td中的内容是一样的, 那么到最后一行就应该把此时的col-td里保存的td设置rowspan
+                    if (++index == $table.data('trNum'))
+                        $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+                    } else { // 上一行与当前行内容不同
+                        // col-rowspan默认为1, 如果统计出的col-rowspan没有变化, 不处理
+                        if ($table.data('col-rowspan') != 1) {
+                            $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+                        }
+                        // 保存第一次出现不同内容的td, 和其内容, 重置col-rowspan
+                        $table.data('col-td', $td);
+                        $table.data('col-content', $td.html());
+                        $table.data('col-rowspan', 1);
+                    }
+                } 
+
+        });
+    } 
+
+    // 同样是个private函数 清理内存之用
+    function dispose($table) {
+        $table.removeData();
+    }
+})(jQuery); 
+
+$(function() {
+    $('#process').mergeCell({
+        cols: [0,2]
+    });
+});
+</script> 
+
+  </head>
+
+  <body>
+    <table id="process" cellpadding="2" cellspacing="0" border="1">
+     <thead>
+                                        <tr>
+                                            <th>终端名称</th>
+                                            <th>业务类型</th>
+                                            <th>支付方式</th>
+                                            <th>交易笔数</th>
+                                            <th>交易金额（元）</th>
+                                            <th>退款笔数</th>
+                                            <th>退款金额（元）</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>***001</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>4</td>
+                                                <td>17.20</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***001</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>10</td>
+                                                <td>3406</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***001</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>5</td>
+                                                <td>813.01</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***002</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>8.80</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***002</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>13</td>
+                                                <td>3280</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***002</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>6</td>
+                                                <td>3346.56</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***003</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>116</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***003</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>5.80</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***004</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>3</td>
+                                                <td>17.40</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***004</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>10</td>
+                                                <td>2397</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***004</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>3</td>
+                                                <td>709.28</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***005</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>2</td>
+                                                <td>437.87</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***005</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>4</td>
+                                                <td>1600</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***007</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>8</td>
+                                                <td>2351</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***007</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>4</td>
+                                                <td>20.20</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***007</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>5</td>
+                                                <td>549.12</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***008</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>5</td>
+                                                <td>6311</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***008</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>9</td>
+                                                <td>2091.63</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***008</td>
+                                                <td>挂号</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>5.80</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***009</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>2</td>
+                                                <td>1142.03</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***009</td>
+                                                <td>充值</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>60</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***014</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>422.11</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>***015</td>
+                                                <td>处方</td>
+                                                <td>银行卡支付</td>
+                                                <td>1</td>
+                                                <td>268.70</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>合计 总机器数:10</td>
+                                                <td>全部</td>
+                                                <td></td>
+                                                <td>100</td>
+                                                <td>29376.51</td>
+                                                <td>0</td>
+                                                <td>0.00</td>
+                                            </tr>
+                                    </tbody>
+
+</table> 
+
+  </body>
+</html>
