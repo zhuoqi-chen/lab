@@ -1,0 +1,36 @@
+Arguments: 
+  /usr/local/bin/node /Users/jacky/.yarn/bin/yarn.js add d3
+
+PATH: 
+  /usr/local/opt/ncurses/bin:/Users/jacky/lib/flutter/bin:/Users/jacky/.yarn/bin:/Users/jacky/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  10.16.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.npm.taobao.org/d3-color/download/d3-color-1.4.0.tgz: ETIMEDOUT
+      at Timeout._onTimeout (/Users/jacky/.yarn/lib/cli.js:141124:19)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
+      at Timer.processTimers (timers.js:223:10)
+
+npm manifest: 
+  {
+    "name": "d3-tree",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
