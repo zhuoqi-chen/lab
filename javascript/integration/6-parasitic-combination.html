@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寄生组合式</title>
+</head>
+
+<body>
+
+    <script>
+
+        function clone(parent, child) {
+            // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+            // key point
+            child.prototype = Object.create(parent.prototype);
+            child.prototype.constructor = child;
+        }
+        function Parent() {
+            this.name = 'parent'
+        }
+        Parent.prototype.getName = function () {
+            return this.name
+        }
+        function Child() {
+            // key point
+            Parent.call(this)
+            this.list = [1, 2, 3]
+        }
+        clone(Parent, Child);
+        Child.prototype.getList = function () {
+            return this.list
+        }
+
+        const child1 = new Child()
+        const child2 = new Child()
+        child1.list.push(4)
+        child2.list.push(5, 6)
+        const textCase = [
+            'child1.list',
+            'child2.list',
+            'child1.__proto__',
+            'Child.prototype',
+            'Parent.prototype',
+            'child1 instanceof Child',
+            'child1 instanceof Parent',
+            'child1.__proto__.constructor === Child',
+            'Child.prototype.__proto__.constructor === Parent'
+
+        ]
+        const rt = textCase.map(item => {
+            return {
+                case: item,
+                value: eval(item)
+            }
+        })
+        console.table(rt)
+
+
+    </script>
+
+</body>
+
+</html>

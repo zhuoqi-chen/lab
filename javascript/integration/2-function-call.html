@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数继承（借助 call）</title>
+</head>
+
+<body>
+    <script>
+        // 构造函数继承（借助 call）
+        function Parent() {
+            this.name = 'patent'
+        }
+        Parent.prototype.getName = function () {
+            return this.name
+        }
+        function Child() {
+            // key point
+            Parent.call(this)
+            this.childName = 'children'
+        }
+        const child = new Child()
+        console.log(child);
+        try {
+            // 不能获取 Parent 原型上方法和属性
+            child.getName()
+        } catch (error) {
+            console.log(error);
+        }
+    </script>
+</body>
+
+</html>

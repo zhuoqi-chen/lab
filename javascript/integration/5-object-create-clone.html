@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寄生式继承</title>
+</head>
+
+<body>
+
+    <script>
+
+        function clone(parent) {
+            const clonedObj = Object.create(parent)
+            clonedObj.getList = function () {
+                return this.list
+            }
+            return clonedObj
+        }
+        const parent = {
+            name: 'parent',
+            list: [1, 2, 3],
+            getName() {
+                return this.name
+            }
+        }
+        const child = clone(parent)
+        console.log('list', child.getList());
+        child.list.push(4)
+        console.log('parent list', parent.list);
+
+    </script>
+
+</body>
+
+</html>

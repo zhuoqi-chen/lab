@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链继承</title>
+</head>
+
+<body>
+    <script>
+        // 原型链继承
+        // 缺点: 两个实例使用的是同一个原型对象。它们的内存空间是共享的，当一个发生变化的时候，
+        //     另外一个也随之进行了变化，这就是使用原型链继承方式的一个缺点
+        function Parent() {
+            this.name = 'parent'
+            this.list = [1, 2, 3]
+        }
+        Parent.prototype.getName = function () {
+            return this.name
+        }
+        Parent.prototype.getList = function () {
+            return this.list
+        }
+        function Child() {
+            this.name = 'child'
+        }
+        // key point
+        Child.prototype = new Parent()
+
+        const child1 = new Child()
+
+        console.log(child1.name); // child
+        console.log(child1.getName() === child1.name); // true
+        console.log(child1.getList()); // [1, 2, 3]
+
+        const child2 = new Child()
+        child2.list.push(4, 5)
+        // 由于共享了原型上的对象,所以实例之间相互影响了
+        console.log(child1.getList());//[1, 2, 3, 4, 5]
+
+    </script>
+</body>
+
+</html>

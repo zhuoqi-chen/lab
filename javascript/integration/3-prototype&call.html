@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合继承（前两种组合）</title>
+</head>
+
+<body>
+    <script>
+        function Parent() {
+            this.name = 'parent'
+            this.list = [1, 2, 3]
+        }
+        Parent.prototype.getName = function () {
+            return this.name
+        }
+        function Child() {
+            // 解决 Parent 的数据属性被共享问题
+            Parent.call(this)
+            this.name = 'child'
+        }
+        // 解决 Child 无法访问 Parent 原型的属性和方法 
+        Child.prototype = new Parent()
+        // 修复构造器函数, 否则会访问到 Parent.prototype.constructor
+        Child.prototype.constructor = Child
+        const child1 = new Child()
+        const child2 = new Child()
+        child1.list.push(4)
+        child2.list.push(5)
+        const textCase = [
+            'child1.list',
+            'child2.list',
+            'child1.__proto__',
+            'Child.prototype',
+            'Parent.prototype',
+            'child1.__proto__.constructor === Child',
+            'Child.prototype.__proto__.constructor === Parent'
+
+        ]
+        const rt = textCase.map(item => {
+            return {
+                case: item,
+                value: eval(item)
+            }
+        })
+        console.table(rt)
+    </script>
+
+</body>
+
+</html>

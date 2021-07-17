@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.create 原型式继承</title>
+</head>
+
+<body>
+
+    <script>
+
+        const parent = {
+            name: 'parent',
+            list: [1, 2, 3],
+            getName() {
+                return this.name
+            }
+        }
+        const child = Object.create(parent)
+        console.log(child.name);
+        console.log(child.getName());
+        console.log(child.list);
+
+        child.name = 'child'
+        console.log(child.name);
+        console.log(child.getName());
+
+        child.list.push(4)
+        console.log(child.list);
+        // Object.create 方法是可以为一些对象实现浅拷贝,对象上的引用类型内存地址还是没变,所以会受子类影响
+        console.log(parent.list);
+
+    </script>
+
+</body>
+
+</html>
