@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-3- reactive</title>
+</head>
+
+<body>
+    <script>
+        const targetMap = new WeakMap()
+        let activeEffect = null
+        class Dep {
+            subscribers = []
+            depend() {
+                if (activeEffect) {
+                    this.subscribers.push(activeEffect)
+                }
+            }
+            notify() {
+                this.subscribers.forEach(fn => fn())
+            }
+
+        }
+
+        function getDep(target, key) {
+            let depMap = targetMap.get(target)
+            if (!depMap) {
+                targetMap.set(target, depMap = new Map())
+            }
+            let dep = depMap.get(key)
+            if (!dep) {
+                depMap.set(key, dep = new Dep())
+            }
+            return dep
+        }
+        function reactive(target) {
+            return new Proxy(target, {
+                get(target, key, receiver) {
+                    console.log('Proxy get');
+                    const dep = getDep(target, key)
+                    dep.depend()
+                    return Reflect.get(target, key, receiver)
+                },
+                set(target, key, value, receiver) {
+                    console.log('Proxy set');
+                    const dep = getDep(target, key)
+                    const rt = Reflect.set(target, key, value, receiver)
+                    dep.notify()
+                    return rt
+                }
+            })
+        }
+        function watchEffect(effect) {
+            activeEffect = effect
+            effect()
+            activeEffect = null
+        }
+
+        const state = reactive({ name: 'czq' })
+        watchEffect(() => {
+            console.log('watch', state.name);
+        })
+        watchEffect(() => {
+            console.log('watch', state.age);
+        })
+        state.name = 'ty'
+        state.age = 18
+    </script>
+</body>
+
+</html>
