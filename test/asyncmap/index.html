@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>async map</title>
+</head>
+
+<body>
+
+  <script>
+    function sleep(time) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, time)
+      });
+    }
+
+    (async () => {
+      const arr = [1, 2, 3];
+
+      // 迭代器中使用异步,
+      // 并发执行
+      // 先执行完迭代,生成已一堆微任务,再按照微任务插入的顺序执行
+      const syncRes = arr.map(async (i) => {
+        console.log({ i });
+        await sleep(1000 - i * 100);
+        return i + 1;
+      });
+      // 拿到的是 promise的数组
+      console.log(syncRes);
+
+      // 并发执行
+      // 用Promise.all包裹,
+      // 先执行完迭代,生成已一堆微任务,再按照微任务插入顺序执行
+      // 不同的是
+      // 会等到这一批微任务执行完之后再返回结果,且是按照迭代时生成的顺序返回结果
+      const asyncRes = await Promise.all(arr.map(async (i) => {
+        console.log('start asyncRes', i);
+        await sleep(1000 - i * 100);
+        console.log('end asyncRes', i);
+        return i + 1;
+      }));
+
+      // 拿到的是最终结果number
+      console.log(asyncRes);
+
+      // 顺序执行
+      await arr.reduce(async (acc, i) => {
+        await acc
+        console.log('start', i);
+        await sleep(1000 - i * 100);
+        console.log('end', i);
+      }, undefined)
+
+    })()
+
+  </script>
+
+</body>
+
+</html>
