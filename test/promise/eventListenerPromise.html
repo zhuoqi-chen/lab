@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eventListenerPromise</title>
+</head>
+
+<body>
+  <button id="button">click</button>
+  <script>
+    const $button = document.getElementById('button')
+    function clickFn1() {
+      Promise.resolve().then(() => console.log("MicroTask 1"))
+      console.log('Listener 1');
+    }
+    function clickFn2() {
+      Promise.resolve().then(() => console.log("MicroTask 2"))
+      console.log('Listener 2');
+    }
+    $button.addEventListener('click', clickFn1)
+    $button.addEventListener('click', clickFn2)
+
+    // 如果是用户手动触发的,chrome会在两次回调之间就会检查微任务,所以输出的顺序为
+    // Listener 1
+    // MicroTask 1
+    // Listener 2
+    // MicroTask 2
+    // 如果是用 $button.click()方式触发点击,则是会先执行完回调的同步任务再执行所有的微任务
+    // Listener 1
+    // Listener 2
+    // MicroTask 1
+    // MicroTask 2
+  </script>
+
+</body>
+
+</html>
